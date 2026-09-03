@@ -1,0 +1,5 @@
+allowBuilds:
+  cbor-extract: true
+  core-js-pure: true
+  esbuild: false
+  sharp: true

@@ -1,0 +1,110 @@
+/* Leaf design tokens.
+   Semantic custom properties consumed by the ui/ component library and available
+   to any editor chrome. Raw values follow the zinc-based palette the editor
+   already renders; change themes here, not in component styles. */
+
+:root {
+  /* Surfaces */
+  --leaf-surface: #ffffff;
+  --leaf-surface-raised: #fafafa;
+  --leaf-surface-sunken: #f4f4f5;
+  --leaf-surface-app: #f5f5f5;
+  --leaf-surface-ink: #101014;
+
+  /* Borders */
+  --leaf-border: #e4e4e7;
+  --leaf-border-strong: #d4d4d8;
+  --leaf-border-active: #a1a1aa;
+
+  /* Text */
+  --leaf-text: #18181b;
+  --leaf-text-secondary: #52525b;
+  --leaf-text-muted: #71717a;
+  --leaf-text-faint: #a1a1aa;
+  --leaf-text-on-accent: #ffffff;
+  --leaf-text-on-ink: #fafafa;
+
+  /* Accent + status */
+  --leaf-accent: #3b82f6;
+  --leaf-accent-hover: #2563eb;
+  --leaf-accent-soft: #eff6ff;
+  --leaf-accent-ring: rgba(59, 130, 246, 0.35);
+  --leaf-danger: #ef4444;
+  --leaf-danger-strong: #b91c1c;
+  --leaf-danger-soft: #fef2f2;
+
+  /* Typography */
+  --leaf-font-sans: Inter, system-ui, -apple-system, sans-serif;
+  --leaf-font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+  --leaf-text-xs: 11px;
+  --leaf-text-sm: 12px;
+  --leaf-text-md: 13px;
+  --leaf-text-lg: 15px;
+
+  /* Radii */
+  --leaf-radius-sm: 5px;
+  --leaf-radius-md: 8px;
+  --leaf-radius-lg: 10px;
+  --leaf-radius-xl: 14px;
+  --leaf-radius-full: 999px;
+
+  /* Elevation */
+  --leaf-shadow-float: 0 4px 24px rgba(0, 0, 0, 0.08), 0 12px 40px rgba(0, 0, 0, 0.04);
+  --leaf-shadow-overlay: 0 10px 40px rgba(0, 0, 0, 0.12), 0 24px 80px rgba(0, 0, 0, 0.08);
+  --leaf-shadow-pill:
+    0 0 0 1px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.06);
+
+  /* Motion */
+  --leaf-duration-fast: 150ms;
+  --leaf-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Layering — fixed editor chrome (toolbar) sits at 100; popups get headroom
+     above it so menus never tie with the chrome they open over. */
+  --leaf-z-popup: 120;
+  --leaf-z-overlay: 200;
+}
+
+/* Tailwind theme, aliased onto the Leaf tokens above so utilities and the
+   ui/ component library stay one system. Change values in :root, not here.
+   Type scale replaces Tailwind's defaults: text-xs/sm/md/lg are the Leaf
+   sizes (11/12/13/15px), so utilities can never disagree with the tokens. */
+@theme inline {
+  --font-sans: var(--leaf-font-sans);
+  --font-mono: var(--leaf-font-mono);
+
+  --text-xs: var(--leaf-text-xs);
+  --text-xs--line-height: 16px;
+  --text-sm: var(--leaf-text-sm);
+  --text-sm--line-height: 18px;
+  --text-md: var(--leaf-text-md);
+  --text-md--line-height: 20px;
+  --text-lg: var(--leaf-text-lg);
+  --text-lg--line-height: 22px;
+
+  --color-surface: var(--leaf-surface);
+  --color-surface-raised: var(--leaf-surface-raised);
+  --color-surface-sunken: var(--leaf-surface-sunken);
+  --color-surface-app: var(--leaf-surface-app);
+  --color-surface-ink: var(--leaf-surface-ink);
+  --color-ink: var(--leaf-text);
+  --color-ink-secondary: var(--leaf-text-secondary);
+  --color-ink-muted: var(--leaf-text-muted);
+  --color-ink-faint: var(--leaf-text-faint);
+  --color-on-accent: var(--leaf-text-on-accent);
+  --color-on-ink: var(--leaf-text-on-ink);
+  --color-edge: var(--leaf-border);
+  --color-edge-strong: var(--leaf-border-strong);
+  --color-edge-active: var(--leaf-border-active);
+  --color-accent: var(--leaf-accent);
+  --color-accent-hover: var(--leaf-accent-hover);
+  --color-accent-soft: var(--leaf-accent-soft);
+  --color-danger: var(--leaf-danger);
+
+  --radius-sm: var(--leaf-radius-sm);
+  --radius-md: var(--leaf-radius-md);
+  --radius-lg: var(--leaf-radius-lg);
+  --radius-xl: var(--leaf-radius-xl);
+
+  --shadow-float: var(--leaf-shadow-float);
+  --shadow-overlay: var(--leaf-shadow-overlay);
+}

@@ -1,0 +1,83 @@
+{
+  "name": "leaf",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "main": "dist-electron/main.mjs",
+  "scripts": {
+    "dev": "VITE_WORKER_BASE_URL=off vite",
+    "build": "tsc && VITE_WORKER_BASE_URL=off vite build",
+    "preview": "vite preview",
+    "check": "oxfmt --check . && oxlint --type-aware --type-check ."
+  },
+  "dependencies": {
+    "@base-ui/react": "^1.4.1",
+    "@modelcontextprotocol/client": "^2.0.0",
+    "@modelcontextprotocol/node": "^2.0.0",
+    "@modelcontextprotocol/server": "^2.0.0",
+    "@paper-design/shaders": "0.0.80",
+    "@paper-design/shaders-react": "0.0.80",
+    "@workos-inc/authkit-react": "^0.16.1",
+    "@zumer/snapdom": "^2.12.0",
+    "mobx": "^6.15.3",
+    "mobx-react-lite": "^4.1.1",
+    "perfect-freehand": "^1.2.3",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "jsdom": "^29.1.1",
+    "oxfmt": "^0.46.0",
+    "oxlint": "^1.61.0",
+    "oxlint-tsgolint": "^0.22.0",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.2.2",
+    "vitest": "^4.1.5"
+  },
+  "packageManager": "pnpm@11.21.0+sha512.521705bce689924eac72f5a3587122f362689ef6571e55ba80076fd637c11132ecffada26fad4ea79c485bfddbfd3d5a2a5b05805a77e893de71ec8a6cca3bb1",
+  "build": {
+    "appId": "com.tinypilot.leaf",
+    "productName": "Leaf Alpha",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*",
+      "package.json"
+    ],
+    "fileAssociations": [
+      {
+        "ext": "leaf",
+        "name": "Leaf Design Document",
+        "description": "A portable Leaf design document",
+        "mimeType": "application/x-leaf",
+        "role": "Editor",
+        "icon": "build/document.png"
+      }
+    ],
+    "mac": {
+      "icon": "build/icon.png",
+      "category": "public.app-category.graphics-design",
+      "type": "distribution",
+      "identity": "Developer ID Application",
+      "hardenedRuntime": true,
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.inherit.plist",
+      "gatekeeperAssess": false,
+      "notarize": true,
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    }
+  }
+}

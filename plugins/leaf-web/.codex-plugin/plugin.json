@@ -1,0 +1,31 @@
+{
+  "name": "leaf-web",
+  "version": "0.3.0",
+  "description": "Design on Leaf's canvas in ChatGPT's built-in browser. The page registers its editor as WebMCP site tools.",
+  "author": {
+    "name": "Aaron Escalona",
+    "email": "escalona.ap@gmail.com",
+    "url": "https://leafnode.app"
+  },
+  "homepage": "https://new.leafnode.app",
+  "license": "MIT",
+  "keywords": ["leaf", "design", "canvas", "webmcp", "site-tools"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Leaf",
+    "shortDescription": "Design on a canvas in ChatGPT's browser through Leaf's site tools.",
+    "longDescription": "Leaf is a visual design editor where every layer is a real HTML element. Open new.leafnode.app in the built-in browser and the page registers its editing operations as WebMCP site tools: read the design, write HTML onto the canvas, restyle layers, manage pages, leave comments. No account, no server, no configuration. You keep editing the same canvas by hand while the agent works.",
+    "developerName": "Leaf",
+    "category": "Design",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://new.leafnode.app",
+    "brandColor": "#1F7A4D",
+    "composerIcon": "./assets/logo.svg",
+    "logo": "./assets/logo.svg",
+    "defaultPrompt": [
+      "Create a 1440-wide landing page hero for a coffee subscription. Warm palette.",
+      "Make the buttons match the color I just gave the headline.",
+      "Review this page: bump text under 14px to 14 and comment where hierarchy is weak."
+    ]
+  }
+}

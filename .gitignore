@@ -1,0 +1,12 @@
+node_modules
+dist
+dist-electron
+dist-local
+release
+.mcp-ports
+.DS_Store
+.claude
+.env
+.wrangler
+.amp
+output

@@ -1,0 +1,524 @@
+/* Component styles for the Leaf UI kit (src/components/ui).
+   Every rule reads tokens from theme.css. State styling relies on Base UI's
+   data attributes (data-popup-open, data-highlighted, data-checked, ...) so the
+   wrappers stay markup-only. */
+
+/* ---------------------------------------------------------------- buttons */
+
+.leaf-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid transparent;
+  border-radius: var(--leaf-radius-md);
+  font-family: var(--leaf-font-sans);
+  font-size: var(--leaf-text-md);
+  font-weight: 500;
+  line-height: 1;
+  user-select: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--leaf-duration-fast),
+    border-color var(--leaf-duration-fast),
+    color var(--leaf-duration-fast);
+}
+
+.leaf-button:focus-visible {
+  outline: 2px solid var(--leaf-accent-ring);
+  outline-offset: 1px;
+}
+
+/* Disabled buttons keep pointer events so their `title` tooltips still show
+   (the toolbar explains disabled controls that way); hover rules below opt out
+   of disabled buttons instead. */
+.leaf-button[disabled],
+.leaf-button[data-disabled] {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.leaf-button-sm {
+  height: 24px;
+  padding: 0 8px;
+  font-size: var(--leaf-text-sm);
+}
+
+.leaf-button-md {
+  height: 28px;
+  padding: 0 10px;
+}
+
+.leaf-button-lg {
+  height: 36px;
+  padding: 0 12px;
+}
+
+.leaf-button-primary {
+  background-color: var(--leaf-accent);
+  color: var(--leaf-text-on-accent);
+}
+
+.leaf-button-primary:hover:not([disabled], [data-disabled]),
+.leaf-button-primary[data-popup-open] {
+  background-color: var(--leaf-accent-hover);
+}
+
+/* Ink is Leaf's filled action color (dashboard "New file", branch dialog submit);
+   accent blue stays reserved for selection and focus. */
+.leaf-button-ink {
+  background-color: var(--leaf-text);
+  color: var(--leaf-text-on-accent);
+}
+
+.leaf-button-ink:hover:not([disabled], [data-disabled]),
+.leaf-button-ink[data-popup-open] {
+  background-color: var(--leaf-surface-ink);
+}
+
+.leaf-button-secondary {
+  background-color: var(--leaf-surface);
+  border-color: var(--leaf-border-strong);
+  color: var(--leaf-text);
+}
+
+.leaf-button-secondary:hover:not([disabled], [data-disabled]),
+.leaf-button-secondary[data-popup-open] {
+  background-color: var(--leaf-surface-sunken);
+  border-color: var(--leaf-border-active);
+}
+
+.leaf-button-ghost {
+  background-color: transparent;
+  color: var(--leaf-text-muted);
+}
+
+.leaf-button-ghost:hover:not([disabled], [data-disabled]),
+.leaf-button-ghost[data-popup-open] {
+  background-color: var(--leaf-surface-sunken);
+  color: var(--leaf-text);
+}
+
+.leaf-button-danger {
+  background-color: var(--leaf-danger);
+  color: var(--leaf-text-on-accent);
+}
+
+.leaf-button-danger:hover:not([disabled], [data-disabled]) {
+  background-color: var(--leaf-danger-strong);
+}
+
+.leaf-icon-button {
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.leaf-icon-button.leaf-button-sm {
+  width: 24px;
+}
+
+.leaf-icon-button.leaf-button-md {
+  width: 28px;
+}
+
+.leaf-icon-button.leaf-button-lg {
+  width: 36px;
+}
+
+/* Tool/mode toggles: quiet until pressed, then inverted ink. */
+.leaf-toggle {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--leaf-text-muted);
+}
+
+/* :not(pressed) keeps this from outranking the pressed rule below, which
+   would otherwise mask the pressed ink until the cursor leaves the button. */
+.leaf-toggle:hover:not([disabled], [data-disabled], [data-pressed]) {
+  background-color: var(--leaf-surface-sunken);
+  color: var(--leaf-text);
+}
+
+.leaf-toggle[data-pressed] {
+  background-color: var(--leaf-surface-ink);
+  color: var(--leaf-text-on-ink);
+}
+
+/* ----------------------------------------------------------------- inputs */
+
+.leaf-input {
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid var(--leaf-border-strong);
+  border-radius: var(--leaf-radius-sm);
+  background-color: var(--leaf-surface);
+  color: var(--leaf-text);
+  font-family: var(--leaf-font-sans);
+  font-size: var(--leaf-text-md);
+  transition:
+    border-color var(--leaf-duration-fast),
+    box-shadow var(--leaf-duration-fast);
+}
+
+.leaf-input::placeholder {
+  color: var(--leaf-text-faint);
+}
+
+.leaf-input:focus {
+  outline: none;
+  border-color: var(--leaf-accent);
+  box-shadow: 0 0 0 3px var(--leaf-accent-ring);
+}
+
+.leaf-input[data-invalid] {
+  border-color: var(--leaf-danger);
+}
+
+.leaf-input[disabled],
+.leaf-input[data-disabled] {
+  background-color: var(--leaf-surface-sunken);
+  color: var(--leaf-text-muted);
+}
+
+/* Filled inputs: the properties-panel style — quiet gray until focused. */
+.leaf-input-filled {
+  background-color: var(--leaf-surface-app);
+  border-color: transparent;
+  border-radius: 6px;
+  font-size: var(--leaf-text-sm);
+}
+
+/* :focus-within covers composite controls whose focus
+   lives on an inner element. */
+.leaf-input-filled:focus,
+.leaf-input-filled:focus-within {
+  background-color: var(--leaf-surface);
+  border-color: var(--leaf-accent);
+  box-shadow: 0 0 0 1px var(--leaf-accent);
+}
+
+/* ----------------------------------------------------------------- popups */
+
+.leaf-positioner {
+  z-index: var(--leaf-z-popup);
+}
+
+.leaf-popup {
+  box-sizing: border-box;
+  padding: 4px;
+  border: 1px solid var(--leaf-border);
+  border-radius: var(--leaf-radius-lg);
+  background-color: var(--leaf-surface);
+  box-shadow: var(--leaf-shadow-float);
+  color: var(--leaf-text);
+  font-family: var(--leaf-font-sans);
+  font-size: var(--leaf-text-md);
+  transform-origin: var(--transform-origin);
+  transition:
+    opacity var(--leaf-duration-fast) var(--leaf-ease-out),
+    transform var(--leaf-duration-fast) var(--leaf-ease-out);
+}
+
+.leaf-popup[data-starting-style],
+.leaf-popup[data-ending-style] {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+.leaf-menu-popup {
+  min-width: 180px;
+}
+
+/* A pointer-opened context menu focuses its popup container so keyboard
+   navigation works. The items provide the active keyboard highlight, so the
+   browser's default outline around the whole popup is redundant. */
+.leaf-selection-context-menu-popup:focus {
+  outline: none;
+}
+
+.leaf-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: var(--leaf-radius-sm);
+  color: var(--leaf-text);
+  /* Menu labels read as part of the panel chrome around them: same 12px
+     regular Inter the layers rows and property labels use. */
+  font-size: var(--leaf-text-sm);
+  font-weight: 400;
+  outline: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.leaf-menu-item[data-highlighted] {
+  background-color: var(--leaf-surface-sunken);
+}
+
+.leaf-menu-item[data-disabled] {
+  color: var(--leaf-text-faint);
+  cursor: default;
+}
+
+.leaf-menu-shortcut {
+  margin-left: auto;
+  padding-left: 16px;
+  color: var(--leaf-text-faint);
+  font-size: var(--leaf-text-sm);
+}
+
+.leaf-menu-submenu-trigger[data-popup-open] {
+  background-color: var(--leaf-surface-sunken);
+}
+
+.leaf-menu-submenu-chevron {
+  margin-left: auto;
+  padding-left: 16px;
+  color: var(--leaf-text-faint);
+  display: flex;
+  align-items: center;
+}
+
+.leaf-menu-item-danger {
+  color: var(--leaf-danger);
+}
+
+.leaf-menu-item-danger[data-highlighted] {
+  background-color: var(--leaf-danger-soft);
+  color: var(--leaf-danger-strong);
+}
+
+.leaf-separator {
+  height: 1px;
+  margin: 4px 6px;
+  background-color: var(--leaf-border);
+}
+
+.leaf-separator[data-orientation="vertical"] {
+  width: 1px;
+  height: auto;
+  align-self: stretch;
+  margin: 2px 4px;
+}
+
+/* ----------------------------------------------------------------- select */
+
+.leaf-select-trigger {
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 120px;
+  font-weight: 400;
+}
+
+.leaf-select-icon {
+  display: grid;
+  place-items: center;
+  color: var(--leaf-text-faint);
+  flex-shrink: 0;
+}
+
+.leaf-select-item {
+  justify-content: space-between;
+  font-weight: 400;
+}
+
+.leaf-select-item[data-selected] {
+  font-weight: 500;
+}
+
+.leaf-select-item-indicator {
+  display: grid;
+  place-items: center;
+  color: var(--leaf-accent);
+  flex-shrink: 0;
+}
+
+/* ---------------------------------------------------------------- tooltip */
+
+.leaf-tooltip {
+  padding: 4px 8px;
+  border-radius: var(--leaf-radius-sm);
+  background-color: var(--leaf-surface-ink);
+  color: var(--leaf-text-on-ink);
+  font-family: var(--leaf-font-sans);
+  font-size: var(--leaf-text-xs);
+  font-weight: 500;
+  line-height: 1.4;
+  transform-origin: var(--transform-origin);
+  transition:
+    opacity var(--leaf-duration-fast) var(--leaf-ease-out),
+    transform var(--leaf-duration-fast) var(--leaf-ease-out);
+}
+
+.leaf-tooltip[data-starting-style],
+.leaf-tooltip[data-ending-style] {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+/* ----------------------------------------------------------------- dialog */
+
+.leaf-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--leaf-z-overlay);
+  background-color: rgba(24, 24, 27, 0.35);
+  backdrop-filter: blur(2px);
+  transition: opacity var(--leaf-duration-fast);
+}
+
+.leaf-dialog-backdrop[data-starting-style],
+.leaf-dialog-backdrop[data-ending-style] {
+  opacity: 0;
+}
+
+.leaf-dialog-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: var(--leaf-z-overlay);
+  width: min(92vw, 440px);
+  padding: 20px;
+  border: 1px solid var(--leaf-border);
+  border-radius: var(--leaf-radius-xl);
+  background-color: var(--leaf-surface);
+  box-shadow: var(--leaf-shadow-overlay);
+  color: var(--leaf-text);
+  font-family: var(--leaf-font-sans);
+  transform: translate(-50%, -50%);
+  transition:
+    opacity var(--leaf-duration-fast) var(--leaf-ease-out),
+    transform var(--leaf-duration-fast) var(--leaf-ease-out);
+}
+
+.leaf-dialog-popup[data-starting-style],
+.leaf-dialog-popup[data-ending-style] {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.96);
+}
+
+.leaf-dialog-title {
+  margin: 0 0 4px;
+  font-size: var(--leaf-text-lg);
+  font-weight: 600;
+}
+
+.leaf-dialog-description {
+  margin: 0 0 16px;
+  font-size: var(--leaf-text-md);
+  line-height: 1.45;
+  color: var(--leaf-text-muted);
+}
+
+.leaf-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* ---------------------------------------------------------------- popover */
+
+.leaf-popover-popup {
+  padding: 12px;
+  min-width: 200px;
+}
+
+.leaf-popover-title {
+  margin: 0 0 4px;
+  font-size: var(--leaf-text-md);
+  font-weight: 600;
+}
+
+.leaf-popover-description {
+  margin: 0;
+  font-size: var(--leaf-text-sm);
+  line-height: 1.45;
+  color: var(--leaf-text-muted);
+}
+
+/* ----------------------------------------------------------------- switch */
+
+.leaf-switch {
+  display: inline-flex;
+  align-items: center;
+  width: 30px;
+  height: 18px;
+  padding: 2px;
+  border: none;
+  border-radius: var(--leaf-radius-full);
+  background-color: var(--leaf-border-strong);
+  flex-shrink: 0;
+  transition: background-color var(--leaf-duration-fast);
+}
+
+.leaf-switch:focus-visible {
+  outline: 2px solid var(--leaf-accent-ring);
+  outline-offset: 1px;
+}
+
+.leaf-switch[data-checked] {
+  background-color: var(--leaf-accent);
+}
+
+.leaf-switch[data-disabled] {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.leaf-switch-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--leaf-radius-full);
+  background-color: var(--leaf-surface);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: transform var(--leaf-duration-fast) var(--leaf-ease-out);
+}
+
+.leaf-switch-thumb[data-checked] {
+  transform: translateX(12px);
+}
+
+/* ----------------------------------------------------------------- slider */
+
+.leaf-slider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  touch-action: none;
+}
+
+.leaf-slider-control {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 16px;
+}
+
+.leaf-slider-track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  border-radius: var(--leaf-radius-full);
+  background-color: var(--leaf-border);
+}
+
+.leaf-slider-indicator {
+  border-radius: var(--leaf-radius-full);
+  background-color: var(--leaf-accent);
+}
+
+.leaf-slider-thumb {
+  width: 13px;
+  height: 13px;
+  border-radius: var(--leaf-radius-full);
+  border: 1px solid var(--leaf-border-strong);
+  background-color: var(--leaf-surface);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.leaf-slider-thumb:focus-visible {
+  outline: 2px solid var(--leaf-accent-ring);
+  outline-offset: 1px;
+}

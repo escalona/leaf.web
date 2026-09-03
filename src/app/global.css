@@ -1,0 +1,295 @@
+/* Tailwind v4, deliberately WITHOUT Preflight: user documents render as real
+   DOM in this page, so no framework-owned global reset may ever ship. The
+   repo's own minimal reset below (unchanged since before Tailwind) is the
+   only base layer, wrapped in @layer base so utilities can override it. */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "../ui/primitives/theme.css";
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html,
+  body,
+  #root {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    color: #1a1a1a;
+    font-family:
+      Inter,
+      system-ui,
+      -apple-system,
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  input,
+  textarea,
+  [contenteditable="true"],
+  [contenteditable="true"] * {
+    user-select: text;
+    -webkit-user-select: text;
+  }
+}
+
+/* Electron's macOS window controls remain native while renderer-owned chrome
+   fills the hidden title-bar area. Dedicated strips and integrated workspace
+   chrome both use .app-titlebar; interactive descendants opt out below so the
+   surrounding surface remains draggable without swallowing their input. */
+.app-titlebar {
+  -webkit-app-region: drag;
+}
+
+.app-titlebar button,
+.app-titlebar input,
+.app-titlebar textarea,
+.app-titlebar select,
+.app-titlebar a,
+.app-titlebar [role="button"] {
+  -webkit-app-region: no-drag;
+}
+
+/* Overlays painted on top of the title-bar strip must opt out explicitly:
+   Chromium drag regions are window-level rects, so DOM stacking alone cannot
+   shield an element from them. */
+.app-no-drag {
+  -webkit-app-region: no-drag;
+}
+
+/* Paste indicator spinner */
+.paste-indicator-spinner {
+  animation: paste-indicator-spin 0.9s linear infinite;
+}
+
+@keyframes paste-indicator-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Materializing animation — wireframe to rendered (agent-created nodes) */
+.node-materializing {
+  animation: node-materialize 500ms ease-out both;
+  animation-delay: var(--mat-delay, 0ms);
+}
+
+@keyframes node-materialize {
+  0% {
+    opacity: 0;
+    outline: 1.5px solid rgba(129, 140, 248, 0.5);
+    outline-offset: -1px;
+  }
+  25% {
+    opacity: 0.04;
+    outline: 1.5px solid rgba(129, 140, 248, 0.45);
+    outline-offset: -1px;
+  }
+  55% {
+    opacity: 0.6;
+    outline: 1px dashed rgba(129, 140, 248, 0.2);
+    outline-offset: -1px;
+  }
+  100% {
+    opacity: 1;
+    outline: 1.5px solid transparent;
+    outline-offset: -1px;
+  }
+}
+
+.generated-image-placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.34),
+      rgba(255, 255, 255, 0)
+    ),
+    #9b9b98;
+  background-size: 220% 100%;
+  border: 2px solid rgba(59, 130, 246, 0.85);
+  color: rgba(255, 255, 255, 0.92);
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 550;
+  letter-spacing: 0.01em;
+  text-align: center;
+  animation: generated-image-pulse 1.35s ease-in-out infinite;
+}
+
+.generated-image-placeholder span {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(24, 24, 27, 0.42);
+  backdrop-filter: blur(6px);
+}
+
+.generated-image-placeholder-overlay {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+}
+
+.generated-image-placeholder-failed {
+  padding: 18px;
+  background: #f4f4f5;
+  border-color: rgba(239, 68, 68, 0.86);
+  color: #991b1b;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.35;
+  text-align: center;
+  animation: none;
+}
+
+.generated-image-placeholder-failed span {
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
+}
+
+@keyframes generated-image-pulse {
+  0%,
+  100% {
+    opacity: 0.72;
+    background-position: 120% 0;
+  }
+  50% {
+    opacity: 1;
+    background-position: -40% 0;
+  }
+}
+
+/* Subtle scrollbars for panels */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Shared panel scroll area: the inset pill scrollbar every docked editor
+   panel (layers, history, properties, comments) uses. */
+.panel-scroll::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+.panel-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  background-clip: content-box;
+  border: 4px solid transparent;
+  border-right-width: 5px;
+  border-radius: 999px;
+}
+.panel-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+  background-clip: content-box;
+}
+
+.panel-resize-handle {
+  position: absolute;
+  z-index: 20;
+  touch-action: none;
+  outline: none;
+}
+.panel-resize-handle::after {
+  content: "";
+  position: absolute;
+  background: transparent;
+  transition: background-color 100ms ease;
+}
+.panel-resize-handle:hover::after,
+.panel-resize-handle:focus-visible::after,
+.panel-resize-handle[data-resizing="true"]::after {
+  background: #3b82f6;
+}
+.panel-resize-handle-vertical {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 7px;
+  cursor: ew-resize;
+}
+.panel-resize-handle-vertical::after {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 1px;
+}
+/* Start-edge variant for panels docked on the right (properties panel). */
+.panel-resize-handle-vertical-start {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 7px;
+  cursor: ew-resize;
+}
+.panel-resize-handle-vertical-start::after {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 1px;
+}
+.panel-resize-handle-horizontal {
+  right: 0;
+  bottom: -4px;
+  left: 0;
+  height: 8px;
+  cursor: ns-resize;
+}
+.panel-resize-handle-horizontal::after {
+  right: 0;
+  bottom: 3px;
+  left: 0;
+  height: 1px;
+}
+
+/* Remove number input spinners */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* A durable Leaf node can enter script interaction mode without changing its
+   serialized styles. The runtime marker disappears when the script aborts. */
+[data-leaf-script-behavior-root][data-leaf-interaction-active="true"] {
+  outline: 2px solid #3b82f6;
+  outline-offset: -2px;
+}
+
+/* MCP and document-script measurement window: while a viewport root carries the
+   measuring attribute, every design node's content-visibility culling is
+   suspended so synchronous reads observe fully laid out geometry. The
+   attribute is set and removed inside one JS task, so nothing paints in the
+   forced state. See src/editor/forced-layout.ts. */
+[data-leaf-measuring] [data-node-id] {
+  content-visibility: visible !important;
+}

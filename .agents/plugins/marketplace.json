@@ -1,0 +1,20 @@
+{
+  "name": "leaf",
+  "interface": {
+    "displayName": "Leaf"
+  },
+  "plugins": [
+    {
+      "name": "leaf-web",
+      "source": {
+        "source": "local",
+        "path": "./plugins/leaf-web"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Design"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+# Served by the assets-only web Worker (worker/wrangler.web.jsonc). WebMCP
+# requires an origin-keyed document; the dev and preview servers send the same
+# header from vite.config.ts.
+/*
+  Origin-Agent-Cluster: ?1
