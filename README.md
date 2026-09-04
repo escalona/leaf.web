@@ -60,7 +60,9 @@ without WebMCP.
    Chrome 149+ with `chrome://flags/#enable-webmcp-testing` enabled. A first visit opens a new
    file on the canvas; later visits list the files this browser holds.
 2. Leaf registers its tools while a ready editor is visible; check **Site tools** in the address
-   bar (ChatGPT) or the WebMCP panel in DevTools (Chrome).
+   bar (ChatGPT) or the WebMCP panel in DevTools (Chrome). In Chrome, `document.modelContext`
+   is defined in the DevTools console once the flag has taken effect; if it is `undefined`, the
+   flag is off or the browser was not restarted.
 3. Ask for work on the open file, for example:
    - "Create a 1440-wide landing page hero for a coffee subscription with a headline, a
      supporting line, and two buttons."
@@ -125,6 +127,30 @@ private repository's full commit log is available on request.
 | 2026-09-02 | Faster launch and file create/open; release pipeline for the hosted app; `src/` layered so the browser bundle never carries desktop code                                                                          |
 | 2026-09-03 | Local-only public build: a first visit opens onto a canvas with no sign-in; this export                                                                                                                           |
 
+#### Dated commits
+
+Excerpt of the private repository's commit log for the work above (hash, author date, subject),
+so the boundary between prior work and Submission Period work is verifiable. The first WebMCP
+commit is `e2dd804` on 2026-08-26. [`WEBMCP-HISTORY.txt`](./WEBMCP-HISTORY.txt) holds the same
+log with per-file change stats for every commit that touched the WebMCP paths. The private
+repository can be opened to judges on request.
+
+```text
+e2dd804 2026-08-26T12:29:38-07:00 feat(webmcp): add curated browser WebMCP tool surface
+8e32ad4 2026-08-27T23:06:34-07:00 feat: add durable MCP image generation
+997490c 2026-08-30T13:52:52-07:00 Slim the MCP tool surface for current-generation models
+d9d187c 2026-08-31T12:18:18-07:00 Address follow-up review findings on durability, handles, and MCP reads
+8becd3a 2026-08-31T12:28:25-07:00 Clean up review-flagged duplication, dead paths, and stale docs
+85aa63f 2026-09-01T12:52:43-07:00 Address the product-description bug triage (B-01 to B-51)
+5527fc0 2026-09-02T14:07:26-07:00 Add pnpm release: deploy the Worker and web app, package the desktop app
+c3c996e 2026-09-02T23:52:01-07:00 Layer src into core, ui, agent, app, and desktop and split the desktop boot
+93f8345 2026-09-03T16:16:56-07:00 Serve a local-only web build and open a first visit onto a canvas
+ca5b404 2026-09-03T16:16:57-07:00 Narrow the public export to the browser app and ship the Codex plugin in it
+ad784a6 2026-09-03T16:22:39-07:00 Open a first visit onto a canvas only in the local-only build, decided by the mount-time load
+34a8f26 2026-09-03T16:23:13-07:00 Document the local-only demo origin in the README and the security notes
+cfd73d7 2026-09-03T16:29:26-07:00 Share the standard boot root between the browser and desktop trees
+```
+
 ## Codex plugin
 
 This repository is also a Codex plugin marketplace. The `leaf-web` plugin (`plugins/leaf-web`) installs
@@ -145,18 +171,20 @@ Install dependencies from the repository root (Node 24, pnpm 11):
 pnpm install
 ```
 
-Start the local editor and open the printed URL in a WebMCP-capable browser:
+Start the local editor and open the printed URL. The editor works in any modern browser; a
+WebMCP-capable one (see [Try it](#try-it)) additionally exposes the site tools:
 
 ```bash
 pnpm dev
 ```
 
-The app runs entirely in the browser: no Worker, no sign-in, documents in IndexedDB.
+The app runs entirely in the browser: no Worker, no sign-in, documents in IndexedDB. The DEV bar
+at the bottom reports "Sync disabled" as an issue; in this build that is the intended mode.
 
 ```bash
 pnpm build      # production build into dist/
 pnpm preview    # serve dist/ with the header WebMCP needs
-pnpm check      # format and lint
+pnpm check      # format and lint (a handful of lint warnings is normal; only errors fail it)
 ```
 
 ### Hosting your own

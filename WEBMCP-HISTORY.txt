@@ -1,0 +1,183 @@
+# WebMCP work in the private Leaf repository, 2026-08-25 to 2026-09-03
+#
+# Output of: git log --stat --date=iso-strict --since=2026-08-25 -- <WebMCP paths>
+# Paths: the browser WebMCP module (src/webmcp before the 2026-09-02 layering, src/agent/webmcp after),
+# its registration in the app shell, the origin-isolation header, and the local-only public build.
+# Hashes and dates are those of the private repository; this public export carries no history.
+# The private repository can be opened to judges on request.
+
+commit 26c5631
+Date:   2026-09-03T18:26:11-07:00
+Subject: Name the Codex plugin leaf-web
+
+
+ scripts/export-public/README.md | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+commit d61ee7a
+Date:   2026-09-03T16:27:36-07:00
+Subject: Share one deferred-chunk store between the editor and the script host, and surface a failed load
+
+
+ src/app/App.tsx | 88 ++++++++++++++++++++++++++++++++++++++++-----------------------------------------------
+ 1 file changed, 40 insertions(+), 48 deletions(-)
+commit ad784a6
+Date:   2026-09-03T16:22:39-07:00
+Subject: Open a first visit onto a canvas only in the local-only build, decided by the mount-time load
+
+
+ src/app/App.tsx | 82 +++++++++++++++++++++++++++++++++++++++++++++++-----------------------------------
+ 1 file changed, 47 insertions(+), 35 deletions(-)
+commit ca5b404
+Date:   2026-09-03T16:16:57-07:00
+Subject: Narrow the public export to the browser app and ship the Codex plugin in it
+
+
+ scripts/export-public.sh                  |  98 ++++++++++++++++++++------------
+ scripts/export-public/README.md           | 182 +++++++++++++++++++++++-------------------------------------
+ scripts/export-public/pnpm-workspace.yaml |   5 ++
+ 3 files changed, 138 insertions(+), 147 deletions(-)
+commit 93f8345
+Date:   2026-09-03T16:16:56-07:00
+Subject: Serve a local-only web build and open a first visit onto a canvas
+
+
+ src/agent/webmcp/leaf-webmcp.ts | 23 +++++++++++++++++++----
+ src/app/App.tsx                 | 22 ++++++++++++++++++++++
+ vite.config.ts                  |  7 ++++++-
+ worker/wrangler.local.jsonc     | 19 +++++++++++++++++++
+ 4 files changed, 66 insertions(+), 5 deletions(-)
+commit c3c996e
+Date:   2026-09-02T23:52:01-07:00
+Subject: Layer src into core, ui, agent, app, and desktop and split the desktop boot
+
+
+ scripts/export-public.sh                   | 163 +++++++++++++++++++++++++++++++++++++
+ scripts/export-public/LICENSE              |  21 +++++
+ scripts/export-public/README.md            | 256 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/{ => agent}/webmcp/leaf-webmcp.test.ts |   4 +-
+ src/{ => agent}/webmcp/leaf-webmcp.ts      |   4 +-
+ src/{ => app}/App.tsx                      |  72 ++++++++---------
+ vite.config.ts                             |  13 ++-
+ 7 files changed, 491 insertions(+), 42 deletions(-)
+commit 5527fc0
+Date:   2026-09-02T14:07:26-07:00
+Subject: Add pnpm release: deploy the Worker and web app, package the desktop app
+
+
+ public/_headers | 5 +++++
+ 1 file changed, 5 insertions(+)
+commit 45585a6
+Date:   2026-09-02T13:52:39-07:00
+Subject: Address code review findings on the launch and sync latency work
+
+
+ src/App.tsx | 115 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++----------------------------------
+ 1 file changed, 72 insertions(+), 43 deletions(-)
+commit 7f6956f
+Date:   2026-09-02T11:18:38-07:00
+Subject: Batch branch session tokens and bridge the bootstrap fetch on desktop
+
+
+ src/App.tsx | 29 ++++++-----------------------
+ 1 file changed, 6 insertions(+), 23 deletions(-)
+commit e2023d2
+Date:   2026-09-02T10:59:46-07:00
+Subject: Speed up desktop launch, file create/open, and hosted alpha packaging
+
+
+ src/App.tsx    | 338 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++---------
+ vite.config.ts |  25 ++++++-
+ 2 files changed, 330 insertions(+), 33 deletions(-)
+commit 85aa63f
+Date:   2026-09-01T12:52:43-07:00
+Subject: Address the product-description bug triage (B-01 to B-51)
+
+
+ src/App.tsx                    | 45 ++++++++++++++++++++++++++++++++++--------
+ src/webmcp/leaf-webmcp.test.ts | 77 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------
+ src/webmcp/leaf-webmcp.ts      | 60 +++++++++++++++++++++++++++++++++++++++++++++++++++++---
+ 3 files changed, 165 insertions(+), 17 deletions(-)
+commit 9024d1e
+Date:   2026-08-31T20:40:44-07:00
+Subject: Remove the branch fork/merge feature
+
+
+ src/App.tsx                    | 136 ++++++-----------------------------------------------------------------
+ src/webmcp/leaf-webmcp.test.ts |   8 +----
+ 2 files changed, 11 insertions(+), 133 deletions(-)
+commit 8becd3a
+Date:   2026-08-31T12:28:25-07:00
+Subject: Clean up review-flagged duplication, dead paths, and stale docs
+
+
+ src/webmcp/leaf-webmcp.test.ts |  4 +++-
+ src/webmcp/leaf-webmcp.ts      | 30 ++----------------------------
+ 2 files changed, 5 insertions(+), 29 deletions(-)
+commit d9d187c
+Date:   2026-08-31T12:18:18-07:00
+Subject: Address follow-up review findings on durability, handles, and MCP reads
+
+
+ src/webmcp/leaf-webmcp.ts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+commit dcc6e27
+Date:   2026-08-31T10:33:25-07:00
+Subject: Merge origin/main, keeping the slimmed tool surface
+
+commit b68d5f8
+Date:   2026-08-30T14:05:42-07:00
+Subject: Add close_file for agent-created collaboration tabs
+
+
+ src/App.tsx | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+commit 997490c
+Date:   2026-08-30T13:52:52-07:00
+Subject: Slim the MCP tool surface for current-generation models
+
+
+ src/webmcp/leaf-webmcp.test.ts | 45 ++++++++++++++++++++++----------------------
+ src/webmcp/leaf-webmcp.ts      | 73 +++++++++++++++++++++++++++++-------------------------------------------
+ 2 files changed, 51 insertions(+), 67 deletions(-)
+commit 8b79673
+Date:   2026-08-30T13:04:41-07:00
+Subject: Merge branch 'main' of https://github.com/escalona/leaf
+
+commit caf05ad
+Date:   2026-08-29T10:25:11-07:00
+Subject: chore: upgrade Vite to 8.2.2
+
+
+ vite.config.ts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+commit a514f5d
+Date:   2026-08-28T22:11:53-07:00
+Subject: Remove dormant tokens and speed up tests
+
+
+ vite.config.ts | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+commit 8e32ad4
+Date:   2026-08-27T23:06:34-07:00
+Subject: feat: add durable MCP image generation
+
+
+ src/webmcp/leaf-webmcp.ts | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+commit b47b809
+Date:   2026-08-27T10:41:16-07:00
+Subject: feat: improve collaboration recovery and editor interactions
+
+
+ src/App.tsx | 44 ++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 42 insertions(+), 2 deletions(-)
+commit e2dd804
+Date:   2026-08-26T12:29:38-07:00
+Subject: feat(webmcp): add curated browser WebMCP tool surface
+
+
+ src/App.tsx                    |  98 +++++++++-
+ src/webmcp/leaf-webmcp.test.ts | 514 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ src/webmcp/leaf-webmcp.ts      | 695 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ vite.config.ts                 |   5 +
+ 4 files changed, 1309 insertions(+), 3 deletions(-)
